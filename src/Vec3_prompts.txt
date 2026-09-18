@@ -1,0 +1,24 @@
+PROMPT #1:
+
+I want to create a math library. 
+
+1. create a class vec3 (exportable) that has a constructor which takes in three floats x, y, z, creating a vec3 object
+2. create a class method `add` that takes in two vec3 objects
+2.1 add x1 to x2, y1 to y2, y3 to y3 using + operator.
+2.2 return resulting vec3 object created using the resulting new x, y, z values.
+
+PROMPT #2:
+
+do the same for substraction
+
+PROMPT #3:
+
+create a function dot that returns a scalar given two vec3 objects. the scalar (type float) should be x1*x2+y1*y2+z1*z2.
+
+PROMPT #4:
+
+create a function cross that takes in two vec3 objects a and b. it should return a vec3 object which is the result of
+
+x = y_a*z_b - z_a*y_b
+y = z_a*x_b - x_a*z_b
+z = x_a*y_b - y_a*x_b

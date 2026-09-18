@@ -1,0 +1,14 @@
+1. create ellipsoid class with center (Vec3), semi-axes a, b, c (floats)
+
+2. create intersect(ray) method:
+compute oc = ray.o - center
+   - compute A = d.x^2/a^2 + d.y^2/b^2 + d.z^2/c^2
+   - compute B = 2*(oc.x*d.x/a^2 + oc.y*d.y/b^2 + oc.z*d.z/c^2)
+   - compute C = oc.x^2/a^2 + oc.y^2/b^2 + oc.z^2/c^2 - 1
+   - compute discriminant, solve quadratic exactly like Sphere::intersect
+
+3. create getNormal(point) method:
+compute nx = 2*(point.x - center.x)/a^2
+   - compute ny = 2*(point.y - center.y)/b^2
+   - compute nz = 2*(point.z - center.z)/c^2
+   - normalize and return (nx, ny, nz)

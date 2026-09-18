@@ -1,0 +1,51 @@
+PROMPT #1:
+
+Create gray floor at y=-1.4 with the normal pointing straight up (make sure normal's sign faces the direction you expect things to be shaded from)
+
+PROMPT #2:
+
+Create a red (1, 0, 0) sphere with center z>0, x within [-2, 2] and y within [-1.5, 1.5]
+
+PROMPT #3:
+
+create a green (0,1, 0) ellipsoid with center z>0 and x in [-2, 2] and y in [-1.5, 1.5]. z: R+
+
+PROMPT #4:
+
+Create another blue one within same ranges
+
+PROMPT #5:
+
+crate a gray (0.5, 0.5, 0.5) plane at y=-1.4
+
+PROMPT #6:
+
+For every pixel, generate its ray, test intersection against all 4 objects, keep the nearest positive-t hit, and record its surface normal. No hit means background color.
+
+PROMPT #7:
+
+create funciton shade. it has arguments hitPoint, normal, closest_object, and scene. scene should be an iterable of the objects in the scene, so make modifications as necessary in the ofApp setup as necessary.
+
+it should have a fixed light intensity defined I which is a vec3. define it as (1, 1, 1)
+
+lightPos should be vec3 (0, 5, 0)
+
+define ka as 0.2 and kd as 0.8
+
+define ambient as ka*I*object.color
+
+PROMPT #8:
+
+1. create a function clampColor(color: Vec3) that returns a Vec3
+2. scale the input color by 255 using scalarMultiply
+3. for each of x, y, z: clamp the value between 0 and 255 (use std::min and std::max)
+4. return the clamped Vec3
+
+5. in the main render loop, after computing `color` from shade():
+   - call clampColor(color) to get the final RGB values
+   - cast each component to int
+   - call pixels.setColor(i, j, ofColor(r, g, b)) to write it into the pixel buffer
+
+6. after the full pixel loop finishes:
+   - call img.setFromPixels(pixels)
+   - call img.update()

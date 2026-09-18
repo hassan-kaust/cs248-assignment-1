@@ -1,0 +1,25 @@
+the sphere class shoudl have a radius R that is a float and a vec3 c that is the center.
+
+intersect funciton should take in a ray.
+
+ray.o - center → oc
+
+dot(ray.d, ray.d) → A
+2 * dot(ray.d, oc) → B
+dot(oc, oc) - radius * radius → C
+
+B*B - 4*A*C → discriminant
+
+IF discriminant < 0 THEN return -1
+
+sqrt(discriminant) → sqrtDisc
+
+(-B - sqrtDisc) / (2*A) → t0
+(-B + sqrtDisc) / (2*A) → t1
+
+IF t0 > EPSILON THEN return t0
+
+IF t1 >  EPSILON THEN 
+      return t1
+
+RETURN -1 (both roots behind origin → no valid hit)

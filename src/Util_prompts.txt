@@ -1,0 +1,15 @@
+PROMPT #1:
+
+1. create a function clampColor(color: Vec3) that returns a Vec3
+2. scale the input color by 255 using scalarMultiply
+3. for each of x, y, z: clamp the value between 0 and 255 (use std::min and std::max)
+4. return the clamped Vec3
+
+5. in the main render loop, after computing `color` from shade():
+   - call clampColor(color) to get the final RGB values
+   - cast each component to int
+   - call pixels.setColor(i, j, ofColor(r, g, b)) to write it into the pixel buffer
+
+6. after the full pixel loop finishes:
+   - call img.setFromPixels(pixels)
+   - call img.update()

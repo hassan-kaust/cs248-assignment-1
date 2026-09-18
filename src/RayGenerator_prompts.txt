@@ -1,0 +1,16 @@
+PROMPT #1:
+
+create a function generateRay(int i, int j, int nx, int ny, bool isPerspective)
+
+set starting point Vec3 e(0, 0, -1)
+set floats l=-2, r=2, t=1.5, b=-1.5
+
+define u = l + (r-l)(i+0.5)/nx
+v = b+(t-b)(j+0.5)/ny
+
+if isPerspective=false:
+      return ray that has origin vec3(u, v, 0) and direction vec3(0, 0, 1)
+if isPerspective=true:
+      vec3 origin = e
+      vec3 dir = vec3(u, v, 0) - e
+     return Ray(origin, dir.normalize())

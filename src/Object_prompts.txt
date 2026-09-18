@@ -1,0 +1,6 @@
+PROMPT #1
+
+create Object class. members will be various quadratic objects. all of them share a vec3 color. they all should have a function intersect that takes in a ray object and returns float hit distance t or -1/infinity if no hit
+
+also a method getNormal which takes a vec3 point and returns the surface normal as vec3 
+

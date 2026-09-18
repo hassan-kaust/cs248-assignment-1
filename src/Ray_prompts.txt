@@ -1,0 +1,6 @@
+Create class Ray
+
+arguments:
+vec3 o (ray origin)
+vsc3 d (ray direction)
+Vec3 evaluate(real t) → o + td

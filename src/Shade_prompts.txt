@@ -1,0 +1,32 @@
+PROMPT #1:
+
+create funciton shade. it has arguments hitPoint, normal, closest_object, and scene. scene should be an iterable of the objects in the scene, so make modifications as necessary in the ofApp setup as necessary.
+
+it should have a fixed light intensity defined I which is a vec3. define it as (1, 1, 1)
+
+lightPos should be vec3 (0, 5, 0)
+
+define ka as 0.2 and kd as 0.8
+
+define ambient as ka*I*object.color
+
+PROMPT #2:
+
+create variable l which is normalize(lightPos - hitPoint)
+
+create shadowRay(hitPoint, l)
+disToLight → length(lightPos - hitPoint)
+
+inShadow → false
+
+for each obj in scene:
+   t → object.intersect(shadowRay)
+   if t > EPSILON and t < distToLight:
+        inShadow → true
+        BREAK
+
+     if inShadow:
+       return ambient
+     else:
+       diffuse → kd*I*object.color*max(0, dot(normal, l))
+       return ambient + diffuse
