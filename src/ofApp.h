@@ -37,6 +37,7 @@ class ofApp : public ofBaseApp{
 		Sphere* redSphere;
 		Ellipsoid* greenEllipsoid;
 		Ellipsoid* blueEllipsoid;
+		Plane* grayPlane;
 		std::vector<Object*> scene;
 		bool rendered;
 };

@@ -36,9 +36,12 @@ void ofApp::setup(){
     greenEllipsoid = new Ellipsoid(Vec3(-1, 0.5f, 2.5f), 0.5f, 0.6f, 0.8f, Vec3(0, 1, 0));
     blueEllipsoid = new Ellipsoid(Vec3(1.5f, -0.5f, 1.8f), 0.7f, 0.5f, 0.6f, Vec3(0, 0, 1));
 
+    grayPlane = new Plane(Vec3(0, -1.4f, 0), Vec3(0, 1, 0), Vec3(0.5f, 0.5f, 0.5f));
+
     scene.push_back(redSphere);
     scene.push_back(greenEllipsoid);
     scene.push_back(blueEllipsoid);
+    scene.push_back(grayPlane);
 
     render();
     rendered = true;
@@ -88,6 +91,14 @@ void ofApp::render(){
                 closestObject = blueEllipsoid;
                 hitPoint = ray.evaluate(t);
                 hitNormal = blueEllipsoid->getNormal(hitPoint);
+            }
+
+            t = grayPlane->intersect(ray);
+            if (t > 0 && (closestT < 0 || t < closestT)) {
+                closestT = t;
+                closestObject = grayPlane;
+                hitPoint = ray.evaluate(t);
+                hitNormal = grayPlane->getNormal(hitPoint);
             }
 
             Vec3 color;
