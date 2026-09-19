@@ -44,6 +44,16 @@ DEBUG LOG - CS248 Assignment 1 (ray tracer), session of 2026-09-19
    Fix:     Shade.cpp: shadow ray origin = hitPoint + normal * 1e-3.
    Result:  speckles gone (confirmed visually after rebuild).
 
+8. Blue ellipsoid violated the handout (z must be negative)
+   Symptom: found while writing the README; blue ellipsoid was centered at z = 1.8.
+   Fix:     ofApp.cpp: center (0.6, -0.5, -0.4), radii (0.25, 0.2, 0.2), so it
+            lies between the eye (z = -1) and the viewing plane (z = 0), inside
+            x in [-2, 2], y in [-1.5, 1.5].
+   Side effect: parallel rays started at z = 0, so an object with z < 0 would
+            be behind every ray origin and never hit. RayGenerator.cpp: parallel
+            ray origins now start at z = -1 (the viewpoint's plane), direction
+            still (0,0,1).
+
 KNOWN ISSUES / TODO
    - No runtime toggle between ortho and perspective (add a key press).
    - Timing and hardware for the performance-analysis item not yet added.

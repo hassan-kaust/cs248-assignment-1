@@ -15,7 +15,7 @@ openFrameworks (C++) ray tracer. Source is in `src/`.
 |---|--------|-------|
 | 1 | Sphere (z > 0) | (1, 0, 0) |
 | 2 | Ellipsoid (z > 0) | (0, 1, 0) |
-| 3 | Ellipsoid, center (1.5, -0.5, 1.8) | (0, 0, 1) |
+| 3 | Ellipsoid, center (0.6, -0.5, -0.4), z < 0 | (0, 0, 1) |
 | 4 | Plane, point (0, -1.4, 0), normal (0, 1, 0) | (0.5, 0.5, 0.5) |
 
 Viewpoint (0, 0, -1), viewing plane z = 0 with extents x in [-2, 2] and y in [-1.5, 1.5], 640x480.

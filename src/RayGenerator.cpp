@@ -12,7 +12,7 @@ Ray generateRay(int i, int j, int nx, int ny, bool isPerspective) {
     float v = t - (t - b) * (j + 0.5f) / ny;
 
     if (!isPerspective) {
-        return Ray(Vec3(u, v, 0), Vec3(0, 0, 1));
+        return Ray(Vec3(u, v, -1), Vec3(0, 0, 1));
     } else {
         Vec3 origin = e;
         Vec3 dir = Vec3::subtract(Vec3(u, v, 0), e);
