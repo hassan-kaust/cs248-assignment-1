@@ -1,0 +1,47 @@
+DEBUG LOG - CS248 Assignment 1 (ray tracer), session of 2026-09-19
+====================================================================
+
+1. Gray plane not visible in orthographic mode
+   Symptom: floor plane (point (0,-1.4,0), normal (0,1,0), color (0.5,0.5,0.5)) not shown.
+   Cause:   ortho rays all have direction (0,0,1); dot(normal, dir) = 0, so the
+            rays are parallel to the plane and Plane::intersect returns -1.
+            The floor is seen edge-on. Correct behavior, not a bug.
+   Action:  none. Assignment fixes the ortho direction (+z) and the plane
+            height/color; it does not require the floor to be visible in ortho.
+
+2. Plane added to the scene
+   - ofApp.h:   added Plane* grayPlane member.
+   - ofApp.cpp: grayPlane = new Plane(Vec3(0,-1.4,0), Vec3(0,1,0), Vec3(0.5,0.5,0.5));
+                pushed onto scene as the 4th object and intersected in render().
+   Normal (0,1,0) is an inference (assignment gives only y = -1.4 and the color).
+
+3. Earlier local edit reverted
+   - RayGenerator.cpp had b = -3.0f (changed the viewing-plane y extent, which
+     breaks the spec's [-1.5, 1.5]). Stashed as "pre-revert local edits" and not
+     restored.
+
+4. Image rendered upside down (RayGenerator.cpp)
+   Symptom: floor would appear in the top half of the window.
+   Cause:   v = b + (t - b) * (j + 0.5) / ny mapped pixel row j = 0 (top of the
+            image) to v = -1.5 (bottom of the viewing plane).
+   Fix:     v = t - (t - b) * (j + 0.5) / ny. Extents kept at [-1.5, 1.5].
+
+5. Floor still not visible after the fixes: stale binary
+   Symptom: floor still missing in perspective mode.
+   Cause:   bin/CS248-OF-template.app binary was built Sep 18 21:33, before
+            the plane, perspectiveMode = true, and the flip fix.
+   Fix:     ran `make` in the project directory, then relaunched.
+   Result:  floor and shadows now visible in perspective mode (confirmed by
+            screenshot).
+
+6. Settings for this push
+   - perspectiveMode = true in ofApp::setup() (perspective view shows the floor).
+
+KNOWN ISSUES / TODO
+   - Shadow acne: black speckles on the spheres/ellipsoids. The shadow ray
+     starts exactly on the surface and the object re-hits itself
+     (t > 1e-6 in float). Fix: offset the shadow-ray origin along the
+     surface normal (e.g. hitPoint + normal * 1e-3) in Shade.cpp.
+   - No runtime toggle between ortho and perspective (add a key press).
+   - Timing and hardware for the performance-analysis item not yet added.
+   - obj/ and bin/ are tracked in git; consider a .gitignore.

@@ -9,7 +9,7 @@ Ray generateRay(int i, int j, int nx, int ny, bool isPerspective) {
     float b = -1.5f;
 
     float u = l + (r - l) * (i + 0.5f) / nx;
-    float v = b + (t - b) * (j + 0.5f) / ny;
+    float v = t - (t - b) * (j + 0.5f) / ny;
 
     if (!isPerspective) {
         return Ray(Vec3(u, v, 0), Vec3(0, 0, 1));
