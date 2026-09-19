@@ -25,6 +25,16 @@ Note: under parallel projection the rays all point along +z, so the floor
 (normal +y) is seen edge-on and does not appear. This is expected. It is
 visible in perspective mode.
 
+## Renders
+
+Perspective projection (floor and shadows visible):
+
+![Perspective view](images/perspective_view.png)
+
+Parallel projection (floor is edge-on and not visible; the blue ellipsoid at z < 0 is in front of the red sphere):
+
+![Parallel view](images/parallel_view.png)
+
 ## Files for the grader
 
 ### `debug_log.txt`
