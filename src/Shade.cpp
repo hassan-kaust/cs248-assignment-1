@@ -14,7 +14,8 @@ Vec3 shade(const Vec3& hitPoint, const Vec3& normal, Object* closestObject, cons
     float distToLight = Vec3::vectorLength(l);
     l = Vec3::normalize(l);
 
-    Ray shadowRay(hitPoint, l);
+    Vec3 shadowOrigin = Vec3::add(hitPoint, Vec3::scalarMultiply(normal, 1e-3f));
+    Ray shadowRay(shadowOrigin, l);
 
     bool inShadow = false;
     for (Object* obj : scene) {

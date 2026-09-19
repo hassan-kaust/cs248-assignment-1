@@ -37,11 +37,14 @@ DEBUG LOG - CS248 Assignment 1 (ray tracer), session of 2026-09-19
 6. Settings for this push
    - perspectiveMode = true in ofApp::setup() (perspective view shows the floor).
 
+7. Shadow acne (black speckles on spheres/ellipsoids)
+   Symptom: black speckles on all three objects in the perspective render.
+   Cause:   shadow ray started exactly on the surface; the object re-hit itself
+            (t > 1e-6 in float), so lit points were treated as shadowed.
+   Fix:     Shade.cpp: shadow ray origin = hitPoint + normal * 1e-3.
+   Result:  speckles gone (confirmed visually after rebuild).
+
 KNOWN ISSUES / TODO
-   - Shadow acne: black speckles on the spheres/ellipsoids. The shadow ray
-     starts exactly on the surface and the object re-hits itself
-     (t > 1e-6 in float). Fix: offset the shadow-ray origin along the
-     surface normal (e.g. hitPoint + normal * 1e-3) in Shade.cpp.
    - No runtime toggle between ortho and perspective (add a key press).
    - Timing and hardware for the performance-analysis item not yet added.
    - obj/ and bin/ are tracked in git; consider a .gitignore.
