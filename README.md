@@ -7,7 +7,7 @@ openFrameworks (C++) ray tracer. Source is in `src/`.
     make
     make RunRelease
 
-`ofApp::setup()` sets `perspectiveMode` (`true` = perspective, `false` = parallel projection).
+`ofApp::setup()` sets the starting projection with `perspectiveMode`. Press `p` to toggle parallel and perspective.
 
 ## What is in the scene
 
@@ -34,6 +34,22 @@ Perspective projection (floor and shadows visible):
 Parallel projection (floor is edge-on and not visible; the blue ellipsoid at z < 0 is in front of the red sphere):
 
 ![Parallel view](images/parallel_view.png)
+
+## Performance analysis
+
+Hardware: Apple M4 Pro, 14 logical cores, macOS (Darwin 25.6.0), Release build (`-O3`).
+The render loop is single-threaded (no C++17 parallelism yet).
+
+Time to ray trace one 640x480 frame with 4 objects (read from the `render` log line, three runs each):
+
+| Projection | Time |
+|------------|------|
+| Parallel | 8.7 to 9.1 ms |
+| Perspective | 11.8 to 12.3 ms |
+
+Perspective is a bit slower because the floor is hit by half the rays and every hit
+also traces a shadow ray, and because each ray direction needs a normalize.
+The app prints this line to the console each time it renders. Press `p` to switch projection and re-render.
 
 ## Files for the grader
 

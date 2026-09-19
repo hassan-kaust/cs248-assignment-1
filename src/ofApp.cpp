@@ -1,5 +1,7 @@
 #include "ofApp.h"
 #include "RayGenerator.h"
+#include <chrono>
+#include <sys/sysctl.h>
 
 /*
 PROMPT #1:
@@ -22,15 +24,13 @@ for (int j = 0; j < 480; j++) {
 }
 
 add this to a render() function
-
-
 */
 
 //--------------------------------------------------------------
 void ofApp::setup(){
     ofSetWindowShape(640, 480);
     img.allocate(640, 480, OF_IMAGE_COLOR);
-    perspectiveMode = false;
+    perspectiveMode = true;
     rendered = false;
     redSphere = new Sphere(0.75f, Vec3(0, 0, 3), Vec3(1, 0, 0));
     greenEllipsoid = new Ellipsoid(Vec3(-1, 0.5f, 2.5f), 0.5f, 0.6f, 0.8f, Vec3(0, 1, 0));
@@ -54,6 +54,7 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::render(){
+    auto start = std::chrono::high_resolution_clock::now();
     Vec3 bgColor(0.2f, 0.2f, 0.2f);
     ofPixels pixels;
     pixels.allocate(640, 480, OF_IMAGE_COLOR);
@@ -119,6 +120,20 @@ void ofApp::render(){
 
     img.setFromPixels(pixels);
     img.update();
+
+    auto end = std::chrono::high_resolution_clock::now();
+    double ms = std::chrono::duration<double, std::milli>(end - start).count();
+
+    char cpu[256] = "unknown";
+    size_t len = sizeof(cpu);
+    sysctlbyname("machdep.cpu.brand_string", cpu, &len, nullptr, 0);
+    int cores = 0;
+    len = sizeof(cores);
+    sysctlbyname("hw.ncpu", &cores, &len, nullptr, 0);
+
+    ofLogNotice("render") << (perspectiveMode ? "perspective" : "parallel")
+                          << " render 640x480: " << ms << " ms | CPU: " << cpu
+                          << " | logical cores: " << cores << " | single-threaded";
 }
 
 //--------------------------------------------------------------
@@ -133,6 +148,10 @@ void ofApp::exit(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
+    if (key == 'p') {
+        perspectiveMode = !perspectiveMode;
+        render();
+    }
 
 }
 

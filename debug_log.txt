@@ -54,7 +54,12 @@ DEBUG LOG - CS248 Assignment 1 (ray tracer), session of 2026-09-19
             ray origins now start at z = -1 (the viewpoint's plane), direction
             still (0,0,1).
 
+9. Performance analysis and projection toggle
+   - ofApp::render() is timed with std::chrono and logs time, CPU and core
+     count (sysctl) via ofLogNotice.
+   - Key 'p' toggles parallel/perspective and re-renders.
+   - Measured on Apple M4 Pro: parallel ~9 ms, perspective ~12 ms (see README).
+
 KNOWN ISSUES / TODO
-   - No runtime toggle between ortho and perspective (add a key press).
-   - Timing and hardware for the performance-analysis item not yet added.
+   - Render loop is single-threaded; C++17 parallelism would be extra credit.
    - obj/ and bin/ are tracked in git; consider a .gitignore.
